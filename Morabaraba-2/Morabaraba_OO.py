@@ -14,10 +14,16 @@ class MorabarabaGame:
                           "E3": self.Cell("Empty"), "E4": self.Cell("Empty"), "E5": self.Cell("Empty"),
                           "F2": self.Cell("Empty"), "F4": self.Cell("Empty"), "F6": self.Cell("Empty"),
                           "G1": self.Cell("Empty"), "G4": self.Cell("Empty"), "G7": self.Cell("Empty")}
-
-
     board = Board()
     
+    def getInputPos(self):
+        while (True):
+            inpt = input("Enter a position: ")
+            if inpt.upper() in self.board.state.keys():
+                break
+            print("Invalid input, try again you bastard")
+        return inpt
+
     def movePiece(pos):
         return None
     def getAdjacentSquares(pos):
