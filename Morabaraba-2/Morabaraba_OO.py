@@ -15,19 +15,9 @@ class MorabarabaGame:
                           "F2": self.Cell("Empty"), "F4": self.Cell("Empty"), "F6": self.Cell("Empty"),
                           "G1": self.Cell("Empty"), "G4": self.Cell("Empty"), "G7": self.Cell("Empty")}
     board = Board()
+   
     
-    def getInputPos(self):
-        while (True):
-            inpt = input("Enter a position: ")
-            if inpt.upper() in self.board.state.keys():
-                break
-            print("Invalid input, try again you bastard")
-        return inpt
 
-    def movePiece(pos):
-        return None
-    def getAdjacentSquares(pos):
-        return None
     def validPos(pos):
         return None
     def shootCow(pos):
@@ -36,9 +26,26 @@ class MorabarabaGame:
         return None
     def checkMills():
         return None
-    def placingPhase():
-        return None
-    def movingPhase():
-        return None
-    def runGame():
-        return None
+
+    def getInputPos(self):
+        while (True):
+            inpt = input("Enter a position: ")
+            if inpt.upper() in self.board.state.keys():
+                break
+            print("Invalid input, try again you bastard")
+        return inpt
+    
+    def runPlacingPhase():
+        def placePiece():
+            return None
+
+    def runMovingPhase():
+        def movePiece(pos):
+            return None
+        def getAdjacentSquares(pos):
+            return None
+
+    def runGame(self):
+        runPlacingPhase()
+        runMovingPhase()
+
