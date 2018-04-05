@@ -50,6 +50,16 @@ class MorabarabaGame:
                     self.board.state[pos] = player
                     break
 
+        xstones, ostones = 12, 12
+        player = "X"
+        while (ostones > 0 and xstones > 0):
+            placePiece(player)
+            if player == "X":
+                xstones -= 1
+                player = "O"
+            else:
+                ostones -= 1
+                player = "X"
     def runMovingPhase(self):
         def getAdjacentSquares(pos):
             return self.board.neighbours[pos]
