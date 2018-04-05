@@ -136,7 +136,7 @@ G   {g1}----------{g4}----------{g7}
                     break
     
         player = "X"
-        while (self.ostones > 0 and self.xstones > 0):
+        while (self.ostones > 0 or self.xstones > 0):
             placePiece(player)
             if player == "X":
                 self.xstones -= 1
@@ -144,7 +144,7 @@ G   {g1}----------{g4}----------{g7}
             else:
                 self.ostones -= 1
                 player = "X"
-    def runMovingPhase(self):
+    def __runMovingPhase(self):
         def getPlayerCount(player):
             return len(list(filter(lambda state: state == player, self.board.state.values())))
         def getAdjacentSquares(pos):
