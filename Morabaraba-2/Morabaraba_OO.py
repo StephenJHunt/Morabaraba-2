@@ -143,14 +143,39 @@ G   {g1}----------{g4}----------{g7}
                 return len(list(filter(lambda state: state == player, self.board.state.values())))
             xcount = getPlayerCount("X")
             ocount = getPlayerCount("O")
-
+            player = "X"
             def getAdjacentSquares(pos):
                 return self.board.neighbours[pos]
-            def movePiece(pos):
-                return None
+            def selectPiece():
+                displayBoard()
+                while True:
+                    pos = getInputPos("Select a piece to move") 
+                    if self.board.state[pos] == player:
+                        movePiece(pos)
+                        break
+                    displayBoard()
+                    print("Please select one of your pieces to move")
+            def movePiece(takePos):
+                displayBoard()
+                while True:
+                    pos = getInputPos('move {} to'.format(takePos))
+                    if pos in getAdjacentSquares(takePos) and self.board.state[pos] == " ":
+                        self.board.state[takePos] = " "
+                        self.board.state[pos] = player
+                        if inMill(pos): shootCow(player)
+                        break
+                    displayBoard()
+                    print("Please place piece on an adjacent empty square")
 
-
-
+            displayBoard()
+            while (xcount > 2 or ocount > 2):
+                selectPiece()
+                if player == "X":
+                    player = "O"
+                    ocount = getPlayerCount("O")
+                else:
+                    player = "X"
+                    xcount = getPlayerCount("X")
 
 
         runPlacingPhase()
