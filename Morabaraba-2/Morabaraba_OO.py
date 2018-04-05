@@ -6,14 +6,14 @@ class MorabarabaGame:
 
         def __init__(self):
             #initialise state
-            self.state = {"A1": "Empty", "A4": "Empty", "A7": "Empty",
-                          "B2": "Empty", "B4": "Empty", "B6": "Empty",
-                          "C3": "Empty", "C4": "Empty", "C5": "Empty",
-                          "D1": "Empty", "D2": "Empty", "D3": "Empty",
-                          "D5": "Empty", "D6": "Empty", "D7": "Empty",
-                          "E3": "Empty", "E4": "Empty", "E5": "Empty",
-                          "F2": "Empty", "F4": "Empty", "F6": "Empty",
-                          "G1": "Empty", "G4": "Empty", "G7": "Empty"}
+            self.state = {"A1": " ", "A4": " ", "A7": " ",
+                          "B2": " ", "B4": " ", "B6": " ",
+                          "C3": " ", "C4": " ", "C5": " ",
+                          "D1": " ", "D2": " ", "D3": " ",
+                          "D5": " ", "D6": " ", "D7": " ",
+                          "E3": " ", "E4": " ", "E5": " ",
+                          "F2": " ", "F4": " ", "F6": " ",
+                          "G1": " ", "G4": " ", "G7": " "}
             #relationships for neighbours
             self.neighbours = {"A1": ['D1', 'A4', 'B2'], "A4": ['A1', 'B4', 'A7'], "A7": ['A4', 'B6', 'D7'],
                                "B2": ['A1', 'D2', 'C3', 'B4'], "B4": ['B2', 'A4', 'C4', 'B6'], "B6": ['B4', 'C5', 'D6', 'A7'],
@@ -29,6 +29,56 @@ class MorabarabaGame:
                           ['C3','D3','E3'], ['A4','B4','C4'], ['E4','F4','G4'], ['C5','D5','E5'], ['B6','D6','F6'],
                           ['A7','D7','G7'], ['A1','B2','C3'], ['A7','B6','C5'], ['G1','F2','E3'], ['G7','F6','E5']]
     board = Board()
+    xstones, ostones = 12, 12
+
+    def displayBoard(self):
+        a1 = self.board.state['A1']
+        a4 = self.board.state['A4']
+        a7 = self.board.state['A7']
+        b2 = self.board.state['B2']
+        b4 = self.board.state['B4']
+        b6 = self.board.state['B6']
+        c3 = self.board.state['C3']
+        c4 = self.board.state['C4']
+        c5 = self.board.state['C5']
+        d1 = self.board.state['D1']
+        d2 = self.board.state['D2']
+        d3 = self.board.state['D3']
+        d5 = self.board.state['D5']
+        d6 = self.board.state['D6']
+        d7 = self.board.state['D7']
+        e3 = self.board.state['E3']
+        e4 = self.board.state['E4']
+        e5 = self.board.state['E5']
+        f2 = self.board.state['F2']
+        f4 = self.board.state['F4']
+        f6 = self.board.state['F6']
+        g1 = self.board.state['G1']
+        g4 = self.board.state['G4']
+        g7 = self.board.state['G7']
+        display = f''' 
+player X: {self.xstones} player O: {self.ostones}
+    1   2  3   4   5  6   7      \n\
+A   {a1}----------{a4}----------{a7}   \n\
+|   | '.       |        .'|      \n\
+B   |   {b2}------{b4}------{b6}   |   \n\
+|   |   |'.    |    .'|   |      \n\
+C   |   |  {c3}---{c4}---{c5}  |   |   \n\
+|   |   |  |       |  |   |      \n\
+D   {d1}---{d2}--{d3}       {d5}--{d6}---{d7}\n\
+|   |   |  |       |  |   |      \n\
+E   |   |  {e3}---{e4}---{e5}  |   |   \n\
+|   |   |.'    |    '.|   |      \n\
+F   |   {b2}------{b4}------{b6}   |   \n\
+|   |.'        |       '. |      \n\
+G   {g1}----------{g4}----------{g7}   \n         
+                  '''
+        print(display)
+
+
+
+
+
 
     def getOpponent(self, player):
         if player == "X":
@@ -46,7 +96,7 @@ class MorabarabaGame:
     def inMill(self, pos):
         for mill in self.board.mills:
             if pos in mill:
-                if self.board.state[mill[0]] != "Empty" and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
+                if self.board.state[mill[0]] != " " and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
                     return True
         return False
 
@@ -59,27 +109,25 @@ class MorabarabaGame:
     def shootCow(self, player):
         while(True):
             pos = self.getInputPos("Choose cow to shoot")
-            if self.board.state[pos] != player and self.board.state[pos] != "Empty":
+            if self.board.state[pos] != player and self.board.state[pos] != " ":
                 if not self.inMill(pos) or self.allInMill(self.getOpponent(player)):
-                    self.board.state[pos] = "Empty"
+                    self.board.state[pos] = " "
                 break
             else:
                 print("Please only shoot your opponent's cows that aren't in a mill")
-    
-
     
     def runPlacingPhase(self):
         def placePiece(player):
             while(True):
                 pos = self.getInputPos("Choose position to place")
-                if self.board.state[pos] != "Empty":
+                if self.board.state[pos] != " ":
                     print("Please place a piece on an empty position")
                 else:
                     self.board.state[pos] = player
                     if self.inMill(pos): self.shootCow(player)
                     break
 
-        xstones, ostones = 12, 12
+        
         player = "X"
         while (ostones > 0 and xstones > 0):
             placePiece(player)
