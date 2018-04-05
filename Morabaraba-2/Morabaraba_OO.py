@@ -141,10 +141,15 @@ G   {g1}----------{g4}----------{g7}
         def runMovingPhase():
             def getPlayerCount(player):
                 return len(list(filter(lambda state: state == player, self.board.state.values())))
+            xcount = getPlayerCount("X")
+            ocount = getPlayerCount("O")
+
             def getAdjacentSquares(pos):
                 return self.board.neighbours[pos]
             def movePiece(pos):
                 return None
+
+
 
 
 
