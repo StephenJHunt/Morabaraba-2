@@ -6,14 +6,14 @@ class MorabarabaGame:
 
         def __init__(self):
             #initialise state
-            self.state = {"A1": self.Cell("Empty"), "A4": self.Cell("Empty"), "A7": self.Cell("Empty"),
-                          "B2": self.Cell("Empty"), "B4": self.Cell("Empty"), "B6": self.Cell("Empty"),
-                          "C3": self.Cell("Empty"), "C4": self.Cell("Empty"), "C5": self.Cell("Empty"),
-                          "D1": self.Cell("Empty"), "D2": self.Cell("Empty"), "D3": self.Cell("Empty"),
-                          "D5": self.Cell("Empty"), "D6": self.Cell("Empty"), "D7": self.Cell("Empty"),
-                          "E3": self.Cell("Empty"), "E4": self.Cell("Empty"), "E5": self.Cell("Empty"),
-                          "F2": self.Cell("Empty"), "F4": self.Cell("Empty"), "F6": self.Cell("Empty"),
-                          "G1": self.Cell("Empty"), "G4": self.Cell("Empty"), "G7": self.Cell("Empty")}
+            self.state = {"A1": "Empty", "A4": "Empty", "A7": "Empty",
+                          "B2": "Empty", "B4": "Empty", "B6": "Empty",
+                          "C3": "Empty", "C4": "Empty", "C5": "Empty",
+                          "D1": "Empty", "D2": "Empty", "D3": "Empty",
+                          "D5": "Empty", "D6": "Empty", "D7": "Empty",
+                          "E3": "Empty", "E4": "Empty", "E5": "Empty",
+                          "F2": "Empty", "F4": "Empty", "F6": "Empty",
+                          "G1": "Empty", "G4": "Empty", "G7": "Empty"}
             #relationships for neighbours
             self.neighbours = {"A1": ['D1', 'A4', 'B2'], "A4": ['A1', 'B4', 'A7'], "A7": ['A4', 'B6', 'D7'],
                                "B2": ['A1', 'D2', 'C3', 'B4'], "B4": ['B2', 'A4', 'C4', 'B6'], "B6": ['B4', 'C5', 'D6', 'A7'],
@@ -32,8 +32,8 @@ class MorabarabaGame:
 
     def getInputPos(self):
         while (True):
-            inpt = input("Enter a position: ")
-            if inpt.upper() in self.board.state.keys():
+            inpt = (input("Enter a position: ")).upper()
+            if inpt in self.board.state.keys():
                 break
             print("Invalid input, try again")
         return inpt   
@@ -53,9 +53,9 @@ class MorabarabaGame:
 
     def shootCow(self, player):
         while(True):
-            pos = getInputPos()
+            pos = self.getInputPos()
             if self.board.state[pos] != player and self.board.state[pos] != "Empty":
-                if not inMill(pos) or allInMill(player):
+                if not self.inMill(pos) or self.allInMill(player):
                     self.board.state[pos] = "Empty"
                 break
             else:
@@ -67,7 +67,7 @@ class MorabarabaGame:
         def placePiece(player):
             while(True):
                 pos = self.getInputPos()
-                if (self.board.state[pos] != "Empty"):
+                if self.board.state[pos] != "Empty":
                     print("Please place a piece on an empty position")
                 else:
                     self.board.state[pos] = player
