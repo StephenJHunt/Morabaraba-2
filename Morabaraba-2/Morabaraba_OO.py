@@ -1,9 +1,5 @@
 class MorabarabaGame:
     class Board:
-        class Cell:
-            def __init__(self, state):
-                self.state = state
-
         def __init__(self):
             #initialise state
             self.state = {"A1": " ", "A4": " ", "A7": " ",
