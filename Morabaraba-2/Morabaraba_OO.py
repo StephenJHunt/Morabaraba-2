@@ -30,6 +30,11 @@ class MorabarabaGame:
                           ['A7','D7','G7'], ['A1','B2','C3'], ['A7','B6','C5'], ['G1','F2','E3'], ['G7','F6','E5']]
     board = Board()
 
+    def getOpponent(self, player):
+        if player == "X":
+            return "O"
+        return "X"
+
     def getInputPos(self, prompt):
         while (True):
             inpt = (input(prompt + ": ")).upper()
@@ -46,8 +51,8 @@ class MorabarabaGame:
         return False
 
     def allInMill(self, player):
-        for key, cell in self.board.state.items():
-            if cell.state == player and not inMill(key):
+        for key, state in self.board.state.items():
+            if state == player and not inMill(key):
                 return False
         return True
 
@@ -55,7 +60,7 @@ class MorabarabaGame:
         while(True):
             pos = self.getInputPos("Choose cow to shoot")
             if self.board.state[pos] != player and self.board.state[pos] != "Empty":
-                if not self.inMill(pos) or self.allInMill(player):
+                if not self.inMill(pos) or self.allInMill(self.getOpponent(player)):
                     self.board.state[pos] = "Empty"
                 break
             else:
