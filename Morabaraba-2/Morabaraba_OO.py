@@ -92,6 +92,7 @@ G   {g1}----------{g4}----------{g7}
                 inpt = (input(prompt + ": ")).upper()
                 if inpt in self.board.state.keys():
                     break
+                displayBoard()
                 print("Invalid input, try again")
             return inpt   
 
@@ -116,9 +117,8 @@ G   {g1}----------{g4}----------{g7}
                     if not inMill(pos) or allInMill(getOpponent(player)):
                         self.board.state[pos] = " "
                         break
-                else:
-                    displayBoard()
-                    print("Please only shoot your opponent's cows that aren't in a mill")
+                displayBoard()
+                print("Please only shoot your opponent's cows that aren't in a mill")
         
         def runPlacingPhase():
             def placePiece(player):
