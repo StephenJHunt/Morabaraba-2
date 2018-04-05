@@ -14,7 +14,7 @@ class MorabarabaGame:
                           "E3": self.Cell("Empty"), "E4": self.Cell("Empty"), "E5": self.Cell("Empty"),
                           "F2": self.Cell("Empty"), "F4": self.Cell("Empty"), "F6": self.Cell("Empty"),
                           "G1": self.Cell("Empty"), "G4": self.Cell("Empty"), "G7": self.Cell("Empty")}
-
+            #relationships for neighbours
             self.neighbours = {"A1": ['D1', 'A4', 'B2'], "A4": ['A1', 'B4', 'A7'], "A7": ['A4', 'B6', 'D7'],
                                "B2": ['A1', 'D2', 'C3', 'B4'], "B4": ['B2', 'A4', 'C4', 'B6'], "B6": ['B4', 'C5', 'D6', 'A7'],
                                "C3": ['B2', 'C4', 'D3'], "C4": ['C3', 'B4', 'C5'], "C5": ['C4', 'D5', 'B6'],
@@ -24,7 +24,7 @@ class MorabarabaGame:
                                "F2": ['G1', 'F4', 'E3', 'D2'], "F4": ['F2', 'G4', 'F6', 'E4'], "F6": ['F4', 'G7', 'D6', 'E5'],
                                "G1": ['D1', 'G4', 'F2'], "G4": ['G1', 'F4', 'G7'], "G7": ['G4', 'F6', 'D7']}
     board = Board()
-   
+    
     def shootCow(pos):
         return None
     def inMill(pos):
@@ -46,12 +46,12 @@ class MorabarabaGame:
         def placePiece():
             return None
 
-    def runMovingPhase():
+    def runMovingPhase(self):
+        def getAdjacentSquares(pos):
+            return self.board.neighbours[pos]
         def movePiece(pos):
             return None
-        def getAdjacentSquares(pos):
-            return None
-
+        
     def runGame(self):
         runPlacingPhase()
         runMovingPhase()
