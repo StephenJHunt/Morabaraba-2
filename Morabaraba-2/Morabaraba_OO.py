@@ -145,12 +145,15 @@ G   {g1}----------{g4}----------{g7}
                 self.ostones -= 1
                 player = "X"
     def runMovingPhase(self):
+        def getPlayerCount(player):
+            return len(list(filter(lambda state: state == player, self.board.state.values())))
         def getAdjacentSquares(pos):
             return self.board.neighbours[pos]
         def movePiece(pos):
             return None
-        
+
     def runGame(self):
-        runPlacingPhase()
-        runMovingPhase()
+        self.runPlacingPhase()
+        self.displayBoard()
+        self.runMovingPhase()
 
