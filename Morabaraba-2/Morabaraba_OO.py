@@ -31,35 +31,37 @@ class MorabarabaGame:
     board = Board()
     xstones, ostones = 12, 12
 
-    def displayBoard(self):
-        a1 = self.board.state['A1']
-        a4 = self.board.state['A4']
-        a7 = self.board.state['A7']
-        b2 = self.board.state['B2']
-        b4 = self.board.state['B4']
-        b6 = self.board.state['B6']
-        c3 = self.board.state['C3']
-        c4 = self.board.state['C4']
-        c5 = self.board.state['C5']
-        d1 = self.board.state['D1']
-        d2 = self.board.state['D2']
-        d3 = self.board.state['D3']
-        d5 = self.board.state['D5']
-        d6 = self.board.state['D6']
-        d7 = self.board.state['D7']
-        e3 = self.board.state['E3']
-        e4 = self.board.state['E4']
-        e5 = self.board.state['E5']
-        f2 = self.board.state['F2']
-        f4 = self.board.state['F4']
-        f6 = self.board.state['F6']
-        g1 = self.board.state['G1']
-        g4 = self.board.state['G4']
-        g7 = self.board.state['G7']
-        #if your IDE is as silly as mine, this next assignment will be underlined in
-        #a very silly and annoying red, but still compile.
-        #ignore the silly Microsoft red.
-        display = f''' 
+
+    def runGame(self):
+        def displayBoard():
+            a1 = self.board.state['A1']
+            a4 = self.board.state['A4']
+            a7 = self.board.state['A7']
+            b2 = self.board.state['B2']
+            b4 = self.board.state['B4']
+            b6 = self.board.state['B6']
+            c3 = self.board.state['C3']
+            c4 = self.board.state['C4']
+            c5 = self.board.state['C5']
+            d1 = self.board.state['D1']
+            d2 = self.board.state['D2']
+            d3 = self.board.state['D3']
+            d5 = self.board.state['D5']
+            d6 = self.board.state['D6']
+            d7 = self.board.state['D7']
+            e3 = self.board.state['E3']
+            e4 = self.board.state['E4']
+            e5 = self.board.state['E5']
+            f2 = self.board.state['F2']
+            f4 = self.board.state['F4']
+            f6 = self.board.state['F6']
+            g1 = self.board.state['G1']
+            g4 = self.board.state['G4']
+            g7 = self.board.state['G7']
+            #if your IDE is as silly as mine, this next assignment will be underlined in
+            #a very silly and annoying red, but still compile.
+            #ignore the silly Microsoft red.
+            display = f''' 
 player X: {self.xstones} player O: {self.ostones}
     1   2  3   4   5  6   7      
 A   {a1}----------{a4}----------{a7}   
@@ -75,85 +77,82 @@ E   |   |  {e3}---{e4}---{e5}  |   |
 F   |   {f2}------{f4}------{f6}   |   
 |   |.'        |       '. |      
 G   {g1}----------{g4}----------{g7}            
-                  '''
-        print('\n'*100)
-        print(display)
+                '''
+            print('\n'*100)
+            print(display)
 
 
-
-
-
-
-    def getOpponent(self, player):
-        if player == "X":
-            return "O"
-        return "X"
-
-    def getInputPos(self, prompt):
-        while (True):
-            inpt = (input(prompt + ": ")).upper()
-            if inpt in self.board.state.keys():
-                break
-            print("Invalid input, try again")
-        return inpt   
-
-    def inMill(self, pos):
-        for mill in self.board.mills:
-            if pos in mill:
-                if self.board.state[mill[0]] != " " and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
-                    return True
-        return False
-
-    def allInMill(self, player):
-        for key, state in self.board.state.items():
-            if state == player and not self.inMill(key):
-                return False
-        return True
-
-    def shootCow(self, player):
-        self.displayBoard()
-        while(True):
-            pos = self.getInputPos("Choose cow to shoot")
-            if self.board.state[pos] != player and self.board.state[pos] != " ":
-                if not self.inMill(pos) or self.allInMill(self.getOpponent(player)):
-                    self.board.state[pos] = " "
-                    break
-            else:
-                self.displayBoard()
-                print("Please only shoot your opponent's cows that aren't in a mill")
-    
-    def runPlacingPhase(self):
-        def placePiece(player):
-            self.displayBoard()
-            while(True):
-                pos = self.getInputPos("Choose position to place")
-                if self.board.state[pos] != " ":
-                    self.displayBoard()
-                    print("Please place a piece on an empty position")
-                else:
-                    self.board.state[pos] = player
-                    if self.inMill(pos): self.shootCow(player)
-                    break
-    
-        player = "X"
-        while (self.ostones > 0 or self.xstones > 0):
-            placePiece(player)
+        def getOpponent(player):
             if player == "X":
-                self.xstones -= 1
-                player = "O"
-            else:
-                self.ostones -= 1
-                player = "X"
-    def __runMovingPhase(self):
-        def getPlayerCount(player):
-            return len(list(filter(lambda state: state == player, self.board.state.values())))
-        def getAdjacentSquares(pos):
-            return self.board.neighbours[pos]
-        def movePiece(pos):
-            return None
+                return "O"
+            return "X"
 
-    def runGame(self):
-        self.runPlacingPhase()
-        self.displayBoard()
-        self.runMovingPhase()
+        def getInputPos(prompt):
+            while (True):
+                inpt = (input(prompt + ": ")).upper()
+                if inpt in self.board.state.keys():
+                    break
+                print("Invalid input, try again")
+            return inpt   
+
+        def inMill(pos):
+            for mill in self.board.mills:
+                if pos in mill:
+                    if self.board.state[mill[0]] != " " and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
+                        return True
+            return False
+
+        def allInMill(player):
+            for key, state in self.board.state.items():
+                if state == player and not inMill(key):
+                    return False
+            return True
+
+        def shootCow(player):
+            displayBoard()
+            while(True):
+                pos = getInputPos("Choose cow to shoot")
+                if self.board.state[pos] != player and self.board.state[pos] != " ":
+                    if not inMill(pos) or allInMill(getOpponent(player)):
+                        self.board.state[pos] = " "
+                        break
+                else:
+                    displayBoard()
+                    print("Please only shoot your opponent's cows that aren't in a mill")
+        
+        def runPlacingPhase():
+            def placePiece(player):
+                displayBoard()
+                while(True):
+                    pos = getInputPos("Choose position to place")
+                    if self.board.state[pos] != " ":
+                        displayBoard()
+                        print("Please place a piece on an empty position")
+                    else:
+                        self.board.state[pos] = player
+                        if inMill(pos): shootCow(player)
+                        break
+        
+            player = "X"
+            while (self.ostones > 0 or self.xstones > 0):
+                placePiece(player)
+                if player == "X":
+                    self.xstones -= 1
+                    player = "O"
+                else:
+                    self.ostones -= 1
+                    player = "X"
+        def runMovingPhase():
+            def getPlayerCount(player):
+                return len(list(filter(lambda state: state == player, self.board.state.values())))
+            def getAdjacentSquares(pos):
+                return self.board.neighbours[pos]
+            def movePiece(pos):
+                return None
+
+
+
+        runPlacingPhase()
+        displayBoard()
+        runMovingPhase()
 
