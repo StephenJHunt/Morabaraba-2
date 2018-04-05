@@ -56,23 +56,27 @@ class MorabarabaGame:
         g1 = self.board.state['G1']
         g4 = self.board.state['G4']
         g7 = self.board.state['G7']
+        #if your IDE is as silly as mine, this next assignment will be underlined in
+        #a very silly and annoying red, but still compile.
+        #ignore the silly Microsoft red.
         display = f''' 
 player X: {self.xstones} player O: {self.ostones}
-    1   2  3   4   5  6   7      \n\
-A   {a1}----------{a4}----------{a7}   \n\
-|   | '.       |        .'|      \n\
-B   |   {b2}------{b4}------{b6}   |   \n\
-|   |   |'.    |    .'|   |      \n\
-C   |   |  {c3}---{c4}---{c5}  |   |   \n\
-|   |   |  |       |  |   |      \n\
-D   {d1}---{d2}--{d3}       {d5}--{d6}---{d7}\n\
-|   |   |  |       |  |   |      \n\
-E   |   |  {e3}---{e4}---{e5}  |   |   \n\
-|   |   |.'    |    '.|   |      \n\
-F   |   {b2}------{b4}------{b6}   |   \n\
-|   |.'        |       '. |      \n\
-G   {g1}----------{g4}----------{g7}   \n         
+    1   2  3   4   5  6   7      
+A   {a1}----------{a4}----------{a7}   
+|   | '.       |        .'|      
+B   |   {b2}------{b4}------{b6}   |   
+|   |   |'.    |    .'|   |      
+C   |   |  {c3}---{c4}---{c5}  |   |   
+|   |   |  |       |  |   |      
+D   {d1}---{d2}--{d3}       {d5}--{d6}---{d7}
+|   |   |  |       |  |   |      
+E   |   |  {e3}---{e4}---{e5}  |   |   
+|   |   |.'    |    '.|   |      
+F   |   {f2}------{f4}------{f6}   |   
+|   |.'        |       '. |      
+G   {g1}----------{g4}----------{g7}            
                   '''
+        print('\n'*100)
         print(display)
 
 
@@ -102,40 +106,43 @@ G   {g1}----------{g4}----------{g7}   \n
 
     def allInMill(self, player):
         for key, state in self.board.state.items():
-            if state == player and not inMill(key):
+            if state == player and not self.inMill(key):
                 return False
         return True
 
     def shootCow(self, player):
+        self.displayBoard()
         while(True):
             pos = self.getInputPos("Choose cow to shoot")
             if self.board.state[pos] != player and self.board.state[pos] != " ":
                 if not self.inMill(pos) or self.allInMill(self.getOpponent(player)):
                     self.board.state[pos] = " "
-                break
+                    break
             else:
+                self.displayBoard()
                 print("Please only shoot your opponent's cows that aren't in a mill")
     
     def runPlacingPhase(self):
         def placePiece(player):
+            self.displayBoard()
             while(True):
                 pos = self.getInputPos("Choose position to place")
                 if self.board.state[pos] != " ":
+                    self.displayBoard()
                     print("Please place a piece on an empty position")
                 else:
                     self.board.state[pos] = player
                     if self.inMill(pos): self.shootCow(player)
                     break
-
-        
+    
         player = "X"
-        while (ostones > 0 and xstones > 0):
+        while (self.ostones > 0 and self.xstones > 0):
             placePiece(player)
             if player == "X":
-                xstones -= 1
+                self.xstones -= 1
                 player = "O"
             else:
-                ostones -= 1
+                self.ostones -= 1
                 player = "X"
     def runMovingPhase(self):
         def getAdjacentSquares(pos):
