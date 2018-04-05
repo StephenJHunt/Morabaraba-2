@@ -29,9 +29,24 @@ class MorabarabaGame:
                           ['C3','D3','E3'], ['A4','B4','C4'], ['E4','F4','G4'], ['C5','D5','E5'], ['B6','D6','F6'],
                           ['A7','D7','G7'], ['A1','B2','C3'], ['A7','B6','C5'], ['G1','F2','E3'], ['G7','F6','E5']]
     board = Board()
+
+    def getInputPos(self):
+        while (True):
+            inpt = input("Enter a position: ")
+            if inpt.upper() in self.board.state.keys():
+                break
+            print("Invalid input, try again")
+        return inpt   
+    def shootCow(self, player):
+        while(True):
+            pos = getInputPos()
+            if "Empty" != self.board.state[pos] != player and not inMill(pos):
+                #TODO: Add logic for all in mill
+                self.board.state[pos] = "Empty"
+                break
+            else:
+                print("Please only shoot your opponent's cows that aren't in a mill")
     
-    def shootCow(self, pos):
-        return None
     def inMill(self, pos):
         for mill in self.board.mills:
             if pos in mill:
@@ -41,13 +56,7 @@ class MorabarabaGame:
     def checkMills():
         return None
 
-    def getInputPos(self):
-        while (True):
-            inpt = input("Enter a position: ")
-            if inpt.upper() in self.board.state.keys():
-                break
-            print("Invalid input, try again")
-        return inpt
+
     
     def runPlacingPhase(self):
         def placePiece(player):
@@ -57,7 +66,7 @@ class MorabarabaGame:
                     print("Please place a piece on an empty position")
                 else:
                     self.board.state[pos] = player
-                    if self.inMill(pos): self.shootCow
+                    if self.inMill(pos): self.shootCow(player)
                     break
 
         xstones, ostones = 12, 12
