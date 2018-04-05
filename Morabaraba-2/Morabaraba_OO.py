@@ -30,9 +30,9 @@ class MorabarabaGame:
                           ['A7','D7','G7'], ['A1','B2','C3'], ['A7','B6','C5'], ['G1','F2','E3'], ['G7','F6','E5']]
     board = Board()
 
-    def getInputPos(self):
+    def getInputPos(self, prompt):
         while (True):
-            inpt = (input("Enter a position: ")).upper()
+            inpt = (input(prompt + ": ")).upper()
             if inpt in self.board.state.keys():
                 break
             print("Invalid input, try again")
@@ -53,7 +53,7 @@ class MorabarabaGame:
 
     def shootCow(self, player):
         while(True):
-            pos = self.getInputPos()
+            pos = self.getInputPos("Choose cow to shoot")
             if self.board.state[pos] != player and self.board.state[pos] != "Empty":
                 if not self.inMill(pos) or self.allInMill(player):
                     self.board.state[pos] = "Empty"
@@ -66,7 +66,7 @@ class MorabarabaGame:
     def runPlacingPhase(self):
         def placePiece(player):
             while(True):
-                pos = self.getInputPos()
+                pos = self.getInputPos("Choose position to place")
                 if self.board.state[pos] != "Empty":
                     print("Please place a piece on an empty position")
                 else:
