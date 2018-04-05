@@ -33,13 +33,11 @@ class MorabarabaGame:
         return None
 
     def getInputPos(self):
-        def validPos(pos):
-            return None
         while (True):
             inpt = input("Enter a position: ")
             if inpt.upper() in self.board.state.keys():
                 break
-            print("Invalid input, try again you bastard")
+            print("Invalid input, try again")
         return inpt
     
     def runPlacingPhase():
