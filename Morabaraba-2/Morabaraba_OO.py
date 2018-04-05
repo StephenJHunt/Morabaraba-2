@@ -32,8 +32,12 @@ class MorabarabaGame:
     
     def shootCow(pos):
         return None
-    def inMill(pos):
-        return None
+    def inMill(self, pos):
+        for mill in self.board.mills:
+            if pos in mill:
+                if self.board.state[mill[0]] != "Empty" and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
+                    return true
+        return false
     def checkMills():
         return None
 
