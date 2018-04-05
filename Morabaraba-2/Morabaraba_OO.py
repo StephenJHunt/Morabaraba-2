@@ -37,25 +37,30 @@ class MorabarabaGame:
                 break
             print("Invalid input, try again")
         return inpt   
-    def shootCow(self, player):
-        while(True):
-            pos = getInputPos()
-            if "Empty" != self.board.state[pos] != player and not inMill(pos):
-                #TODO: Add logic for all in mill
-                self.board.state[pos] = "Empty"
-                break
-            else:
-                print("Please only shoot your opponent's cows that aren't in a mill")
-    
+
     def inMill(self, pos):
         for mill in self.board.mills:
             if pos in mill:
                 if self.board.state[mill[0]] != "Empty" and (self.board.state[mill[0]] == self.board.state[mill[1]] == self.board.state[mill[2]]):
-                    return true
-        return false
-    def checkMills():
-        return None
+                    return True
+        return False
 
+    def allInMill(self, player):
+        for key, cell in self.board.state.items():
+            if cell.state == player and not inMill(key):
+                return False
+        return True
+
+    def shootCow(self, player):
+        while(True):
+            pos = getInputPos()
+            if self.board.state[pos] != player and self.board.state[pos] != "Empty":
+                if not inMill(pos) or allInMill(player):
+                    self.board.state[pos] = "Empty"
+                break
+            else:
+                print("Please only shoot your opponent's cows that aren't in a mill")
+    
 
     
     def runPlacingPhase(self):
