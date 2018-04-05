@@ -40,9 +40,15 @@ class MorabarabaGame:
             print("Invalid input, try again")
         return inpt
     
-    def runPlacingPhase():
-        def placePiece():
-            return None
+    def runPlacingPhase(self):
+        def placePiece(player):
+            while(True):
+                pos = getInputPos()
+                if (self.board.state[pos] != "Empty"):
+                    print("Please place a piece on an empty position")
+                else:
+                    self.board.state[pos] = player
+                    break
 
     def runMovingPhase(self):
         def getAdjacentSquares(pos):
