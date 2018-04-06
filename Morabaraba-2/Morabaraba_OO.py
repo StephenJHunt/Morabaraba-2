@@ -152,12 +152,26 @@ G   {g1}----------{g4}----------{g7}
                 displayBoard()
                 while True:
                     pos = getInputPos("Select a cow to move")
+                    if (player == "X" and xcount == 3) or (player == "O" and ocount == 3):
+                        moveFlyingPiece(pos)
+                        break
                     if pieceMovable(pos): 
                         if self.board.state[pos] == player:
                             moveNormalPiece(pos)
                             break
                     displayBoard()
                     print("Please select a valid cow to move")
+            def moveFlyingPiece(takePos):
+                displayBoard()
+                while True:
+                    pos = getInputPos('move {} to'.format(takePos))
+                    if self.board.state[pos] == " ":
+                        self.board.state[takePos] = " "
+                        self.board.state[pos] = player
+                        if inMill(pos): shootCow(player)
+                        break
+                    displayBoard()
+                    print("Please place piece on an adjacent empty square")
             def moveNormalPiece(takePos):
                 displayBoard()
                 while True:
