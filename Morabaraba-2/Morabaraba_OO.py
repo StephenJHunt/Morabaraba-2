@@ -187,9 +187,21 @@ G   {g1}----------{g4}----------{g7}
                         break
                     displayBoard()
                     print("Please place piece on an adjacent empty square")
-
+            def canPlay():
+                for pos, state in self.board.state.items():
+                    if state == player and pieceMovable(pos):
+                        return True
+                return False
+                        
+            #########################################################
+            #########################################################
             displayBoard()
+            if ocount == xcount == 12:
+                print("DRAW!!!")
+                return
             while (xcount > 2 and ocount > 2):
+                if not canPlay():
+                    print(getOpponent(player) + " won!")
                 selectPiece()
                 if player == "X":
                     player = "O"
@@ -198,7 +210,10 @@ G   {g1}----------{g4}----------{g7}
                     player = "X"
                     xcount = getPlayerCount("X")
 
-
+            if xcount > 3:
+                print("O won!")
+            else:
+                print("X won!")
         runPlacingPhase()
         displayBoard()
         runMovingPhase()
