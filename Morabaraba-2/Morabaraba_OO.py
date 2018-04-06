@@ -202,6 +202,7 @@ G   {g1}----------{g4}----------{g7}
             while (xcount > 2 and ocount > 2):
                 if not canPlay():
                     print(getOpponent(player) + " won!")
+                    return
                 selectPiece()
                 if player == "X":
                     player = "O"
