@@ -147,7 +147,11 @@ G   {g1}----------{g4}----------{g7}
             def getAdjacentSquares(pos):
                 return self.board.neighbours[pos]
             def pieceMovable(pos):
-                return len(list(filter(lambda state: state == " "), getAdjacentSquares(pos))) > 0
+                neighbours = getAdjacentSquares(pos)
+                for neighbour in neighbours:
+                    if self.board.state[neighbour] == " ":
+                        return True
+                return False
             def selectPiece():
                 displayBoard()
                 while True:
@@ -171,7 +175,7 @@ G   {g1}----------{g4}----------{g7}
                         if inMill(pos): shootCow(player)
                         break
                     displayBoard()
-                    print("Please place piece on an adjacent empty square")
+                    print("Please place piece on an empty square")
             def moveNormalPiece(takePos):
                 displayBoard()
                 while True:
@@ -185,7 +189,7 @@ G   {g1}----------{g4}----------{g7}
                     print("Please place piece on an adjacent empty square")
 
             displayBoard()
-            while (xcount > 2 or ocount > 2):
+            while (xcount > 2 and ocount > 2):
                 selectPiece()
                 if player == "X":
                     player = "O"
