@@ -1,4 +1,6 @@
 class MorabarabaGame:
+    #Due to some group members not having access to a computer over the vacation, all of this was done by all the group members working together on one computer
+    #hence the commit history all being from the person whose computer was used by the group
     class Board:
         def __init__(self):
             #initialise state
